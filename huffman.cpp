@@ -34,7 +34,7 @@ auto frequency(string str) {
 	return frq_vec;
 }
 /*create huffman tree*/
-auto creatTree(vector<pair<char, int>> &frq) {
+auto createTree(vector<pair<char, int>> &frq) {
 	priority_queue<TreeNode*, vector<TreeNode*>, CmpByValue> q;
 	while (!frq.empty()) {
 		TreeNode*newNode = new TreeNode{ frq.back().first, frq.back().second };
@@ -65,7 +65,7 @@ void deleteTree(TreeNode* t) {
 }
 int main(){
 	auto frq = frequency("aaaaaeeiiitttttttouzuu");
-	auto huff = creatTree(frq);
+	auto huff = createTree(frq);
 	bfs(huff);
 	deleteTree(huff);
 }
