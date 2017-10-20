@@ -50,12 +50,12 @@ auto createTree(vector<pair<char, int>> &frq) {
 	}
 	return q.top();
 }
-void bfs(TreeNode* t,string code="") {
+void dfs(TreeNode* t,string code="") {
 	if (t == nullptr)return;
 	if (t->isEnd)
 		cout <<"\'" <<t->data <<"\'["<<t->weight  <<"]:" << code << endl;
-	bfs(t->lChild, code + "0");
-	bfs(t->rChild, code + "1");
+	dfs(t->lChild, code + "0");
+	dfs(t->rChild, code + "1");
 }
 void deleteTree(TreeNode* t) {
 	if (t == nullptr)return;
@@ -66,7 +66,7 @@ void deleteTree(TreeNode* t) {
 int main(){
 	auto frq = frequency("aaaaaeeiiitttttttouzuu");
 	auto huff = createTree(frq);
-	bfs(huff);
+	dfs(huff);
 	deleteTree(huff);
 }
 
