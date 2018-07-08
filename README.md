@@ -15,9 +15,11 @@ Patricia data structure (Radix tree) is a data structure that represents a space
 + Language: Python (3.6.5)
 
 + __Node__ class
+
 	__Node__ class is node in radix tree. It has `prefix` which is the edge information from its parent to itself. `link` is prefix's link interface number. `next` is child pointers, where `next[0]` is the child which prefix started with 0 and `next[1]` is the child which prefix started with 1.
 
 + __RadixTree__ class
+
 	__RadixTree__ class is the implement of radix tree structure. Function `ip2bin` transfer IP address to its 32 bits binary string. Function `common_prefix` finds the common prefix between two ip address. `find_link` returns the result of an IP address or binary string. `insert` can add prefix information to the tree. `print_tree` can display the radix tree information in preorder.
 
 Here is an example of this program:
