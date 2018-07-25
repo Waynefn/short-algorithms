@@ -35,37 +35,17 @@ class Solution(object):
                 return [cho]
         return choice
 
-    def solve_sudoku_guess(self):
-        while True:
-            for i in range(9):
-                for j in range(9):
-                    if self.board_tmp[i][j] == '.':
-                        choice = self.get_choice(self.board_tmp, i, j)
-                        if len(choice)==0:
-                            return False
-                        if len(choice) > 1:
-                            choice = self.get_adj(self.board_tmp, choice, i, j)
-                        if len(choice) == 2:
-                            pass
-                        if len(choice) == 1:
-                            num = choice.pop()
-                            self.rows[i].add(num)
-                            self.columns[j].add(num)
-                            self.blocks[i // 3][j // 3].add(num)
-                            self.board_tmp[i][j] = num
-        return True
-                            
     def solveSudoku(self, board):
         """
         :type board: List[List[str]]
         :rtype: void Do not return anything, modify board in-place instead.
         """
         self.update_info(board)
-        self.board_tmp = board[:]
+        board_tmp = []
         while True:
-            if self.board_tmp == board:
+            if board_tmp == board:
                 break
-            self.board_tmp = board[:]
+            board_tmp = board[:]
             for i in range(9):
                 for j in range(9):
                     if board[i][j] == '.':
@@ -78,7 +58,26 @@ class Solution(object):
                             self.columns[j].add(num)
                             self.blocks[i // 3][j // 3].add(num)
                             board[i][j] = num
-
+        self.solveSudoku2(board)
+    def dfs(self, board, stack1, stack2):
+        if not stack1: return
+        x, y = stack1.pop()
+        stack2.append((x, y))
+        box = [board[x // 3 * 3 + i][y // 3 * 3 + j] for i in range(3) for j in range(3)]
+        row = [board[x][j] for j in range(9)]
+        col = [board[i][y] for i in range(9)]
+        for i in "123456789":
+            if not any([i in box, i in col, i in row]):
+                board[x][y] = i
+                self.dfs(board, stack1, stack2)
+                if not stack1: return
+        board[x][y] = "."
+        pos = stack2.pop()
+        stack1.append(pos)
+    def solveSudoku2(self, board):
+        stack1 = [(i, j) for i in range(9) for j in range(9) if board[i][j] == "."]
+        stack2 = []
+        self.dfs(board, stack1, stack2)
 
 a = Solution()
 board = [[".", ".", "9", "7", "4", "8", ".", ".", "."],
