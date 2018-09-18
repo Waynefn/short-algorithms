@@ -4,7 +4,9 @@
 #include<string>
 #include<map>
 #include<queue>
+
 using namespace std;
+
 struct TreeNode {
 	char data;int weight;
 	bool isEnd;
@@ -16,6 +18,7 @@ struct TreeNode {
 		this->lChild = this->rChild = nullptr;
 	}
 };
+
 struct CmpByValue{
 	bool operator()(const pair<char, int>& lhs, const pair<char, int>& rhs){
 		return lhs.second > rhs.second;
@@ -24,6 +27,7 @@ struct CmpByValue{
 		return lhs->weight>rhs->weight;
 	}
 };
+
 /*get frequency of string str*/
 auto frequency(string str) {
 	map<char, int> frq;
@@ -33,6 +37,7 @@ auto frequency(string str) {
 	sort(frq_vec.begin(), frq_vec.end(),CmpByValue());
 	return frq_vec;
 }
+
 /*create huffman tree*/
 auto createTree(vector<pair<char, int>> &frq) {
 	priority_queue<TreeNode*, vector<TreeNode*>, CmpByValue> q;
@@ -50,6 +55,7 @@ auto createTree(vector<pair<char, int>> &frq) {
 	}
 	return q.top();
 }
+
 void dfs(TreeNode* t,string code="") {
 	if (t == nullptr)return;
 	if (t->isEnd)
@@ -57,12 +63,14 @@ void dfs(TreeNode* t,string code="") {
 	dfs(t->lChild, code + "0");
 	dfs(t->rChild, code + "1");
 }
+
 void deleteTree(TreeNode* t) {
 	if (t == nullptr)return;
 	deleteTree(t->lChild);
 	deleteTree(t->rChild);
 	delete t;
 }
+
 int main(){
 	auto frq = frequency("aaaaaeeiiitttttttouzuu");
 	auto huff = createTree(frq);
