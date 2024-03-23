@@ -19,3 +19,7 @@ My method is to use a tree to iterate all situations.
 To avoid considering priority grade, I use a Suffix expression.
 
 But the difficulty is to delete the same result, 5*6 to 6*5.
+
+![image](1.png)
+
+
